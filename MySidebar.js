@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableHighlight, Image, Alert } from 'react-native';
 
 import MyContainer from './MyContainer';
+import MyFragment1 from './MyFragment1';
+import MyFragment2 from './MyFragment2';
+import MyFragment3 from './MyFragment3';
+import MyFragment4 from './MyFragment4';
 
 export default class MySidebar extends Component {
   constructor(props) {
@@ -11,7 +15,7 @@ export default class MySidebar extends Component {
       dataSource: ds.cloneWithRows([
           'page 1', 'page 2', 'page 3', 'page 4'
         ]),
-        fragmentID: 0,
+        containerFragment: MyFragment1,
     };
   }
 
@@ -22,7 +26,20 @@ export default class MySidebar extends Component {
   }
 
   _onPressButton(rowID: number) {
-    this.setState({fragmentID: rowID});
+    switch (rowID) {
+      case '0':
+        this.setState({containerFragment: MyFragment1});
+        break;
+      case '1':
+        this.setState({containerFragment: MyFragment2});
+        break;
+      case '2':
+        this.setState({containerFragment: MyFragment3});
+        break;
+      case '3':
+        this.setState({containerFragment: MyFragment4});
+        break;
+    }
   }
 
   _renderRow(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
@@ -77,7 +94,7 @@ export default class MySidebar extends Component {
           />
         </View>
         <View style={styles.container}>
-          <MyContainer fragmentID={this.state.fragmentID}/>
+          <MyContainer containerFragment={this.state.containerFragment}/>
         </View>
       </View>
     )
